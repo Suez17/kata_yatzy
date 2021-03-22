@@ -21,12 +21,17 @@ public class YatzyTest {
     }
 
     @Test
-    public void yatzy_scores_50() {
+    public void test_yatzy_scores_50() {
         int expected = 50;
         int actual = Yatzy.yatzy(4, 4, 4, 4, 4);
         assertEquals(expected, actual);
-        assertEquals(50, Yatzy.yatzy(6, 6, 6, 6, 6));
-        assertEquals(0, Yatzy.yatzy(6, 6, 6, 6, 3));
+    }
+
+    @Test
+    public void test_yatzy_scores_0() {
+        int expected = 0;
+        int actual = Yatzy.yatzy(6, 6, 6, 6, 3);
+        assertEquals(expected, actual);
     }
 
     @Test

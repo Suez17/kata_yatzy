@@ -43,12 +43,8 @@ public class Yatzy {
         return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == 5).sum();
     }
 
-    public int sixes() {
-        int sum = 0;
-        for (int at = 0; at < dice.length; at++)
-            if (dice[at] == 6)
-                sum = sum + 6;
-        return sum;
+    public static int sixes(int d1, int d2, int d3, int d4, int d5) {
+        return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == 6).sum();
     }
 
     public static int score_pair(int d1, int d2, int d3, int d4, int d5) {

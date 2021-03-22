@@ -34,7 +34,6 @@ public class YatzyTest {
         assertEquals(expected, actual);
     }
 
-
     @Test
     public void test_ones_scores_1() {
         int expected = 1;
@@ -64,9 +63,24 @@ public class YatzyTest {
     }
 
     @Test
-    public void test_2s() {
-        assertEquals(4, Yatzy.twos(1, 2, 3, 2, 6));
-        assertEquals(10, Yatzy.twos(2, 2, 2, 2, 2));
+    public void test_twos_scores_4() {
+        int expected = 4;
+        int actual = Yatzy.twos(1, 2, 3, 2, 6);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_twos_scores_10() {
+        int expected = 10;
+        int actual = Yatzy.twos(2, 2, 2, 2, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_twos_scores_0() {
+        int expected = 0;
+        int actual = Yatzy.twos(1, 3, 4, 5, 6);
+        assertEquals(expected, actual);
     }
 
     @Test

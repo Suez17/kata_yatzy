@@ -87,20 +87,12 @@ public class Yatzy {
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[d1 - 1] += 1;
-        tallies[d2 - 1] += 1;
-        tallies[d3 - 1] += 1;
-        tallies[d4 - 1] += 1;
-        tallies[d5 - 1] += 1;
-        if (tallies[0] == 1 &&
-                tallies[1] == 1 &&
-                tallies[2] == 1 &&
-                tallies[3] == 1 &&
-                tallies[4] == 1)
-            return 15;
-        return 0;
+        final String smallStraight = "12345";
+        final String orderedDices = IntStream.of(d1, d2, d3, d4, d5)
+                .sorted()
+                .mapToObj(String::valueOf)
+                .reduce("", (acc, d) -> acc += d);
+        return smallStraight.equals(orderedDices) ? 15 : 0;
     }
 
     public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {

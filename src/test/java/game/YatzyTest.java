@@ -227,9 +227,17 @@ public class YatzyTest {
     }
 
     @Test
-    public void smallStraight() {
+    public void test_smallStraight_scores_15_when_ordered() {
         assertEquals(15, Yatzy.smallStraight(1, 2, 3, 4, 5));
+    }
+
+    @Test
+    public void test_smallStraight_scores_15_when_unordered() {
         assertEquals(15, Yatzy.smallStraight(2, 3, 4, 5, 1));
+    }
+
+    @Test
+    public void test_smallStraight_scores_0() {
         assertEquals(0, Yatzy.smallStraight(1, 2, 2, 4, 5));
     }
 

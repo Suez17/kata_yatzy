@@ -54,27 +54,11 @@ public class Yatzy {
     }
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int sumOfThreeOfAKind = 0;
-        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
-        for (int duplicateDiceValue : duplicateDiceValues) {
-            if (dices.stream().filter(d -> d == duplicateDiceValue).count() >= 3) {
-                sumOfThreeOfAKind += duplicateDiceValue * 3;
-            }
-        }
-        return sumOfThreeOfAKind;
+        return sumOfAKind(3, d1, d2, d3, d4, d5);
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int sumOfThreeOfAKind = 0;
-        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
-        for (int duplicateDiceValue : duplicateDiceValues) {
-            if (dices.stream().filter(d -> d == duplicateDiceValue).count() >= 4) {
-                sumOfThreeOfAKind += duplicateDiceValue * 4;
-            }
-        }
-        return sumOfThreeOfAKind;
+        return sumOfAKind(4, d1, d2, d3, d4, d5);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
@@ -91,25 +75,45 @@ public class Yatzy {
         int sumOfThreeOfAKind = 0;
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
         final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
-        Iterator<Integer> iterator = duplicateDiceValues.iterator();
+
         if (duplicateDiceValues.size() == 2) {
+            final Iterator<Integer> iterator = duplicateDiceValues.iterator();
             int duplicateDiceValue1 = iterator.next();
             int duplicateDiceValue2 = iterator.next();
-            if (dices.stream().filter(d -> d == duplicateDiceValue1).count() == 3 &&
-                    dices.stream().filter(d -> d == duplicateDiceValue2).count() == 2) {
+            long countDuplicateDiceValue1 = countDuplicateValue(duplicateDiceValue1, dices);
+            long countDuplicateDiceValue2 = countDuplicateValue(duplicateDiceValue2, dices);
+
+            if (countDuplicateDiceValue1 == 3 && countDuplicateDiceValue2 == 2) {
                 sumOfThreeOfAKind = duplicateDiceValue1 * 3 + duplicateDiceValue2 * 2;
-            } else if (dices.stream().filter(d -> d == duplicateDiceValue1).count() == 2 &&
-                    dices.stream().filter(d -> d == duplicateDiceValue2).count() == 3)  {
+            } else if (countDuplicateDiceValue1 == 2 && countDuplicateDiceValue2 == 3)  {
                 sumOfThreeOfAKind = duplicateDiceValue1 * 2 + duplicateDiceValue2 * 3;
             }
         }
         return sumOfThreeOfAKind;
     }
 
+    private static int sumOfAKind(int valueOfAKind, int d1, int d2, int d3, int d4, int d5) {
+        int sumOfOfAKind = 0;
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
+        for (int duplicateDiceValue : duplicateDiceValues) {
+            if (countDuplicateValue(duplicateDiceValue, dices) >= valueOfAKind) {
+                sumOfOfAKind += duplicateDiceValue * valueOfAKind;
+            }
+        }
+        return sumOfOfAKind;
+    }
+
     private static int sumTargetDiceValue(int targetDiceValue, int d1, int d2, int d3, int d4, int d5) {
         return IntStream.of(d1, d2, d3, d4, d5)
                 .filter(d -> d == targetDiceValue)
                 .sum();
+    }
+    
+    private static long countDuplicateValue(int targetValue, List<Integer> list) {
+        return list.stream()
+                .filter(d -> d == targetValue)
+                .count();
     }
 
     private static int getMaxValue(Set<Integer> set) {

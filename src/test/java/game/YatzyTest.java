@@ -62,9 +62,18 @@ public class YatzyTest {
     }
 
     @Test
-    public void test_threes() {
+    public void test_threes_scores_6() {
         assertEquals(6, Yatzy.threes(1, 2, 3, 2, 3));
+    }
+
+    @Test
+    public void test_threes_scores_12() {
         assertEquals(12, Yatzy.threes(2, 3, 3, 3, 3));
+    }
+
+    @Test
+    public void test_threes_scores_0() {
+        assertEquals(0, Yatzy.threes(2, 2, 2, 2, 1));
     }
 
     @Test

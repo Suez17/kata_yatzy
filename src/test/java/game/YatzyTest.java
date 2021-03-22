@@ -152,9 +152,23 @@ public class YatzyTest {
     }
 
     @Test
-    public void two_Pair() {
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 4, 5));
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 5, 5));
+    public void test_twoPairs_scores_16() {
+        assertEquals(16, Yatzy.twoPairs(3, 3, 5, 4, 5));
+    }
+
+    @Test
+    public void test_twoPairs_scores_16_when_full_house() {
+        assertEquals(16, Yatzy.twoPairs(3, 3, 5, 5, 5));
+    }
+
+    @Test
+    public void test_twoPairs_scores_0_when_one_pair() {
+        assertEquals(0, Yatzy.twoPairs(3, 3, 1, 2, 4));
+    }
+
+    @Test
+    public void test_twoPairs_scores_0_when_no_pair() {
+        assertEquals(0, Yatzy.twoPairs(1, 2, 3, 4, 5));
     }
 
     @Test

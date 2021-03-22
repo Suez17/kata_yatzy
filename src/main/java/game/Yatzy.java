@@ -2,7 +2,9 @@ package game;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Yatzy {
 
@@ -46,24 +48,16 @@ public class Yatzy {
                 .orElse(0) * 2;
     }
 
-    public static int two_pair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
-                n++;
-                score += (6 - i);
-            }
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+    public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
+        int sumOfTwoPairs = 0;
+        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
+        if (duplicateDiceValues.size() >= 2) {
+            int maxPairValue = getMaxValue(duplicateDiceValues);
+            sumOfTwoPairs += maxPairValue * 2;
+            duplicateDiceValues.remove(maxPairValue);
+            sumOfTwoPairs += getMaxValue(duplicateDiceValues) * 2;
+        }
+        return sumOfTwoPairs;
     }
 
     public static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5) {
@@ -164,5 +158,16 @@ public class Yatzy {
 
     private static int sumTargetDiceValue(int targetDiceValue, int d1, int d2, int d3, int d4, int d5) {
         return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == targetDiceValue).sum();
+    }
+
+    private static int getMaxValue(Set<Integer> set) {
+        return set.stream().mapToInt(Integer::valueOf).max().orElse(0);
+    }
+
+    private static Set<Integer> getDuplicateDiceValues(int d1, int d2, int d3, int d4, int d5) {
+        final Set<Integer> set = new HashSet<>();
+        return Stream.of(d1, d2, d3, d4, d5)
+                .filter(d -> !set.add(d))
+                .collect(Collectors.toSet());
     }
 }

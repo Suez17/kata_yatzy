@@ -34,12 +34,33 @@ public class YatzyTest {
         assertEquals(expected, actual);
     }
 
+
     @Test
-    public void test_1s() {
-        assertTrue(Yatzy.ones(1, 2, 3, 4, 5) == 1);
-        assertEquals(2, Yatzy.ones(1, 2, 1, 4, 5));
-        assertEquals(0, Yatzy.ones(6, 2, 2, 4, 5));
-        assertEquals(4, Yatzy.ones(1, 2, 1, 1, 1));
+    public void test_ones_scores_1() {
+        int expected = 1;
+        int actual = Yatzy.ones(1, 2, 3, 4, 5);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_ones_scores_2() {
+        int expected = 2;
+        int actual = Yatzy.ones(1, 2, 1, 4, 5);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_ones_scores_0() {
+        int expected = 0;
+        int actual = Yatzy.ones(6, 2, 2, 4, 5);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test_ones_scores_4() {
+        int expected = 4;
+        int actual = Yatzy.ones(1, 2, 1, 1, 1);
+        assertEquals(expected, actual);
     }
 
     @Test

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.stream.IntStream;
+
 public class Yatzy {
 
     public static int chance(int d1, int d2, int d3, int d4, int d5) {
@@ -11,15 +13,7 @@ public class Yatzy {
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 1) sum++;
-        if (d2 == 1) sum++;
-        if (d3 == 1) sum++;
-        if (d4 == 1) sum++;
-        if (d5 == 1)
-            sum++;
-
-        return sum;
+        return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == 1).sum();
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {

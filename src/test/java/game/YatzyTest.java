@@ -8,79 +8,57 @@ public class YatzyTest {
 
     @Test
     public void test_chance_scores_15() {
-        int expected = 15;
-        int actual = Yatzy.chance(2, 3, 4, 5, 1);
-        assertEquals(expected, actual);
+        assertEquals(15, Yatzy.chance(2, 3, 4, 5, 1));
     }
 
     @Test
     public void test_chance_scores_16() {
-        int expected = 16;
-        int actual = Yatzy.chance(3, 3, 4, 5, 1);
-        assertEquals(expected, actual);
+        assertEquals(16, Yatzy.chance(3, 3, 4, 5, 1));
     }
 
     @Test
     public void test_yatzy_scores_50() {
-        int expected = 50;
-        int actual = Yatzy.yatzy(4, 4, 4, 4, 4);
-        assertEquals(expected, actual);
+        assertEquals(50, Yatzy.yatzy(4, 4, 4, 4, 4));
     }
 
     @Test
     public void test_yatzy_scores_0() {
-        int expected = 0;
-        int actual = Yatzy.yatzy(6, 6, 6, 6, 3);
-        assertEquals(expected, actual);
+        assertEquals(0, Yatzy.yatzy(6, 6, 6, 6, 3));
     }
 
     @Test
     public void test_ones_scores_1() {
-        int expected = 1;
-        int actual = Yatzy.ones(1, 2, 3, 4, 5);
-        assertEquals(expected, actual);
+        assertEquals(1, Yatzy.ones(1, 2, 3, 4, 5));
     }
 
     @Test
     public void test_ones_scores_2() {
-        int expected = 2;
-        int actual = Yatzy.ones(1, 2, 1, 4, 5);
-        assertEquals(expected, actual);
+        assertEquals(2, Yatzy.ones(1, 2, 1, 4, 5));
     }
 
     @Test
     public void test_ones_scores_0() {
-        int expected = 0;
-        int actual = Yatzy.ones(6, 2, 2, 4, 5);
-        assertEquals(expected, actual);
+        assertEquals(0, Yatzy.ones(6, 2, 2, 4, 5));
     }
 
     @Test
     public void test_ones_scores_4() {
-        int expected = 4;
-        int actual = Yatzy.ones(1, 2, 1, 1, 1);
-        assertEquals(expected, actual);
+        assertEquals(4, Yatzy.ones(1, 2, 1, 1, 1));
     }
 
     @Test
     public void test_twos_scores_4() {
-        int expected = 4;
-        int actual = Yatzy.twos(1, 2, 3, 2, 6);
-        assertEquals(expected, actual);
+        assertEquals(4, Yatzy.twos(1, 2, 3, 2, 6));
     }
 
     @Test
     public void test_twos_scores_10() {
-        int expected = 10;
-        int actual = Yatzy.twos(2, 2, 2, 2, 2);
-        assertEquals(expected, actual);
+        assertEquals(10, Yatzy.twos(2, 2, 2, 2, 2));
     }
 
     @Test
     public void test_twos_scores_0() {
-        int expected = 0;
-        int actual = Yatzy.twos(1, 3, 4, 5, 6);
-        assertEquals(expected, actual);
+        assertEquals(0, Yatzy.twos(1, 3, 4, 5, 6));
     }
 
     @Test

@@ -109,11 +109,16 @@ public class Yatzy {
     }
 
     private static int sumTargetDiceValue(int targetDiceValue, int d1, int d2, int d3, int d4, int d5) {
-        return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == targetDiceValue).sum();
+        return IntStream.of(d1, d2, d3, d4, d5)
+                .filter(d -> d == targetDiceValue)
+                .sum();
     }
 
     private static int getMaxValue(Set<Integer> set) {
-        return set.stream().mapToInt(Integer::valueOf).max().orElse(0);
+        return set.stream()
+                .mapToInt(Integer::valueOf)
+                .max()
+                .orElse(0);
     }
 
     private static Set<Integer> getDuplicateDiceValues(int d1, int d2, int d3, int d4, int d5) {

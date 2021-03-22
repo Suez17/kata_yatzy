@@ -88,20 +88,12 @@ public class Yatzy {
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
         final String smallStraight = "12345";
-        final String orderedDices = IntStream.of(d1, d2, d3, d4, d5)
-                .sorted()
-                .mapToObj(String::valueOf)
-                .reduce("", (acc, d) -> acc += d);
-        return smallStraight.equals(orderedDices) ? 15 : 0;
+        return smallStraight.equals(getOrderedDices(d1, d2, d3, d4, d5)) ? 15 : 0;
     }
 
     public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
         final String largeStraight = "23456";
-        final String orderedDices = IntStream.of(d1, d2, d3, d4, d5)
-                .sorted()
-                .mapToObj(String::valueOf)
-                .reduce("", (acc, d) -> acc += d);
-        return largeStraight.equals(orderedDices) ? 20 : 0;
+        return largeStraight.equals(getOrderedDices(d1, d2, d3, d4, d5)) ? 20 : 0;
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
@@ -151,5 +143,12 @@ public class Yatzy {
         return Stream.of(d1, d2, d3, d4, d5)
                 .filter(d -> !set.add(d))
                 .collect(Collectors.toSet());
+    }
+
+    private static String getOrderedDices(int d1, int d2, int d3, int d4, int d5) {
+        return IntStream.of(d1, d2, d3, d4, d5)
+                .sorted()
+                .mapToObj(String::valueOf)
+                .reduce("", (acc, d) -> acc += d);
     }
 }

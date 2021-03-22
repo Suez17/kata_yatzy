@@ -262,9 +262,38 @@ public class YatzyTest {
     }
 
     @Test
-    public void fullHouse() {
+    public void test_fullHouse_scores_18() {
         assertEquals(18, Yatzy.fullHouse(6, 2, 2, 2, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0() {
         assertEquals(0, Yatzy.fullHouse(2, 3, 4, 5, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0_pair() {
+        assertEquals(0, Yatzy.fullHouse(2, 2, 3, 5, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0_two_pairs() {
+        assertEquals(0, Yatzy.fullHouse(2, 2, 4, 4, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0_three_of_a_kind() {
+        assertEquals(0, Yatzy.fullHouse(2, 2, 2, 4, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0_four_of_a_kind() {
+        assertEquals(0, Yatzy.fullHouse(2, 2, 2, 2, 6));
+    }
+
+    @Test
+    public void test_fullHouse_scores_0_five_of_a_kind() {
+        assertEquals(0, Yatzy.fullHouse(2, 2, 2, 2, 2));
     }
 
 }

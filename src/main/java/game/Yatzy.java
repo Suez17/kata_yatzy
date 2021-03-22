@@ -45,10 +45,8 @@ public class Yatzy {
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
         int sumOfTwoPairs = 0;
-        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
-        if (duplicateDiceValues.size() == 2) {
-            final Iterator<Integer> iterator = duplicateDiceValues.iterator();
-            sumOfTwoPairs = (iterator.next() * 2) + (iterator.next() * 2);
+        if (getDuplicateDiceValues(d1, d2, d3, d4, d5).size() == 2) {
+            sumOfTwoPairs = sumOfAKind(2, d1, d2, d3, d4, d5);
         }
         return sumOfTwoPairs;
     }
@@ -72,7 +70,7 @@ public class Yatzy {
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int sumOfThreeOfAKind = 0;
+        int sumOfFullHouse = 0;
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
         final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
 
@@ -84,12 +82,12 @@ public class Yatzy {
             long countDuplicateDiceValue2 = countDuplicateValue(duplicateDiceValue2, dices);
 
             if (countDuplicateDiceValue1 == 3 && countDuplicateDiceValue2 == 2) {
-                sumOfThreeOfAKind = duplicateDiceValue1 * 3 + duplicateDiceValue2 * 2;
+                sumOfFullHouse = duplicateDiceValue1 * 3 + duplicateDiceValue2 * 2;
             } else if (countDuplicateDiceValue1 == 2 && countDuplicateDiceValue2 == 3)  {
-                sumOfThreeOfAKind = duplicateDiceValue1 * 2 + duplicateDiceValue2 * 3;
+                sumOfFullHouse = duplicateDiceValue1 * 2 + duplicateDiceValue2 * 3;
             }
         }
-        return sumOfThreeOfAKind;
+        return sumOfFullHouse;
     }
 
     private static int sumOfAKind(int valueOfAKind, int d1, int d2, int d3, int d4, int d5) {

@@ -97,10 +97,23 @@ public class YatzyTest {
     }
 
     @Test
-    public void fives() {
-        assertEquals(10, new Yatzy(4, 4, 4, 5, 5).fives());
-        assertEquals(15, new Yatzy(4, 4, 5, 5, 5).fives());
-        assertEquals(20, new Yatzy(4, 5, 5, 5, 5).fives());
+    public void test_fives_scores_10() {
+        assertEquals(10, Yatzy.fives(4, 4, 4, 5, 5));
+    }
+
+    @Test
+    public void test_fives_scores_15() {
+        assertEquals(15, Yatzy.fives(4, 4, 5, 5, 5));
+    }
+
+    @Test
+    public void test_fives_scores_20() {
+        assertEquals(20, Yatzy.fives(4, 5, 5, 5, 5));
+    }
+
+    @Test
+    public void test_fives_scores_0() {
+        assertEquals(0, Yatzy.fives(4, 4, 4, 4, 4));
     }
 
     @Test

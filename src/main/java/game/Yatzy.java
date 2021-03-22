@@ -39,13 +39,8 @@ public class Yatzy {
         return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == 4).sum();
     }
 
-    public int fives() {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++)
-            if (dice[i] == 5)
-                s = s + 5;
-        return s;
+    public static int fives(int d1, int d2, int d3, int d4, int d5) {
+        return IntStream.of(d1, d2, d3, d4, d5).filter(d -> d == 5).sum();
     }
 
     public int sixes() {

@@ -46,17 +46,17 @@ public class Yatzy {
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
         int sumOfTwoPairs = 0;
         if (getDuplicateDiceValues(d1, d2, d3, d4, d5).size() == 2) {
-            sumOfTwoPairs = sumOfAKind(2, d1, d2, d3, d4, d5);
+            sumOfTwoPairs = sumOfAKind(2, false, d1, d2, d3, d4, d5);
         }
         return sumOfTwoPairs;
     }
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        return sumOfAKind(3, d1, d2, d3, d4, d5);
+        return sumOfAKind(3, false, d1, d2, d3, d4, d5);
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        return sumOfAKind(4, d1, d2, d3, d4, d5);
+        return sumOfAKind(4, false, d1, d2, d3, d4, d5);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
@@ -71,31 +71,25 @@ public class Yatzy {
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
         int sumOfFullHouse = 0;
-        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-        final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
 
-        if (duplicateDiceValues.size() == 2) {
-            final Iterator<Integer> iterator = duplicateDiceValues.iterator();
-            int duplicateDiceValue1 = iterator.next();
-            int duplicateDiceValue2 = iterator.next();
-            long countDuplicateDiceValue1 = countDuplicateValue(duplicateDiceValue1, dices);
-            long countDuplicateDiceValue2 = countDuplicateValue(duplicateDiceValue2, dices);
-
-            if (countDuplicateDiceValue1 == 3 && countDuplicateDiceValue2 == 2) {
-                sumOfFullHouse = duplicateDiceValue1 * 3 + duplicateDiceValue2 * 2;
-            } else if (countDuplicateDiceValue1 == 2 && countDuplicateDiceValue2 == 3)  {
-                sumOfFullHouse = duplicateDiceValue1 * 2 + duplicateDiceValue2 * 3;
+        if (getDuplicateDiceValues(d1, d2, d3, d4, d5).size() == 2) {
+            sumOfFullHouse = sumOfAKind(3, true, d1, d2, d3, d4, d5);
+            if (sumOfFullHouse != 0) {
+                sumOfFullHouse += sumOfAKind(2, true, d1, d2, d3, d4, d5);
             }
         }
         return sumOfFullHouse;
     }
 
-    private static int sumOfAKind(int valueOfAKind, int d1, int d2, int d3, int d4, int d5) {
+    private static int sumOfAKind(int valueOfAKind, boolean strictComparison,
+                                  int d1, int d2, int d3, int d4, int d5) {
         int sumOfOfAKind = 0;
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
         final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
         for (int duplicateDiceValue : duplicateDiceValues) {
-            if (countDuplicateValue(duplicateDiceValue, dices) >= valueOfAKind) {
+            if (!strictComparison && countDuplicateValue(duplicateDiceValue, dices) >= valueOfAKind) {
+                sumOfOfAKind += duplicateDiceValue * valueOfAKind;
+            } else if (strictComparison && countDuplicateValue(duplicateDiceValue, dices) == valueOfAKind) {
                 sumOfOfAKind += duplicateDiceValue * valueOfAKind;
             }
         }

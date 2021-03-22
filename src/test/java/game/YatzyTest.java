@@ -22,6 +22,11 @@ public class YatzyTest {
     }
 
     @Test
+    public void test_yatzy_scores_50_other() {
+        assertEquals(50, Yatzy.yatzy(6, 6, 6, 6, 6));
+    }
+
+    @Test
     public void test_yatzy_scores_0() {
         assertEquals(0, Yatzy.yatzy(6, 6, 6, 6, 3));
     }

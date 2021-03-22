@@ -104,7 +104,7 @@ public class Yatzy {
     
     private static long countDuplicateValues(int targetValue, List<Integer> list) {
         return list.stream()
-                .filter(d -> d == targetValue)
+                .filter(value -> value == targetValue)
                 .count();
     }
 

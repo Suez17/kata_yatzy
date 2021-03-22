@@ -40,11 +40,7 @@ public class Yatzy {
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
-        final Set<Integer> set = new HashSet<>();
-        return IntStream.of(d1, d2, d3, d4, d5)
-                .filter(d -> !set.add(d))
-                .max()
-                .orElse(0) * 2;
+        return getMaxValue(getDuplicateDiceValues(d1, d2, d3, d4, d5)) * 2;
     }
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {

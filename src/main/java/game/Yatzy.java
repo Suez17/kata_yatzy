@@ -87,9 +87,9 @@ public class Yatzy {
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
         final Set<Integer> duplicateDiceValues = getDuplicateDiceValues(d1, d2, d3, d4, d5);
         for (int duplicateDiceValue : duplicateDiceValues) {
-            if (!strictComparison && countDuplicateValues(duplicateDiceValue, dices) >= valueOfAKind) {
-                sumOfAKind += duplicateDiceValue * valueOfAKind;
-            } else if (strictComparison && countDuplicateValues(duplicateDiceValue, dices) == valueOfAKind) {
+            final long totalDuplicateValues = countDuplicateValues(duplicateDiceValue, dices);
+            if ((!strictComparison && totalDuplicateValues >= valueOfAKind) ||
+                    (strictComparison && totalDuplicateValues == valueOfAKind)) {
                 sumOfAKind += duplicateDiceValue * valueOfAKind;
             }
         }

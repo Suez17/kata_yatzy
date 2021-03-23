@@ -87,7 +87,7 @@ public class Yatzy {
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
         final Set<Integer> duplicateDiceValues = findDuplicateDiceValues(d1, d2, d3, d4, d5);
         for (int duplicateDiceValue : duplicateDiceValues) {
-            final long totalDuplicateValues = countDuplicateValues(duplicateDiceValue, dices);
+            final long totalDuplicateValues = countOccurences(duplicateDiceValue, dices);
             if ((!strictComparison && totalDuplicateValues >= valueOfAKind) ||
                     (strictComparison && totalDuplicateValues == valueOfAKind)) {
                 sumOfAKind += duplicateDiceValue * valueOfAKind;
@@ -102,7 +102,7 @@ public class Yatzy {
                 .sum();
     }
     
-    private static long countDuplicateValues(int targetValue, List<Integer> list) {
+    private static long countOccurences(int targetValue, List<Integer> list) {
         return list.stream()
                 .filter(value -> value == targetValue)
                 .count();

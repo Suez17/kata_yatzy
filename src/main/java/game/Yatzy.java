@@ -3,7 +3,6 @@ package game;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Yatzy {
 
@@ -40,50 +39,56 @@ public class Yatzy {
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
-        return findMaxValue(findDuplicateDices(d1, d2, d3, d4, d5)) * 2;
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        return findMaxValue(findDuplicates(dices)) * 2;
     }
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
         int sumOfTwoPairs = 0;
 
-        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicates(dices);
 
         if (duplicateDices.size() == 2) {
-            sumOfTwoPairs = findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+            sumOfTwoPairs = findSumOfAllOccurences(duplicateDices, dices,
                     2, false);
         }
         return sumOfTwoPairs;
     }
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
-        return findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicates(dices);
+        return findSumOfAllOccurences(duplicateDices, dices,
                 3, false);
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
-        return findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicates(dices);
+        return findSumOfAllOccurences(duplicateDices, dices,
                 4, false);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
         final String smallStraight = "12345";
-        return smallStraight.equals(createOrderedChainOfDice(d1, d2, d3, d4, d5)) ? 15 : 0;
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        return smallStraight.equals(createOrderedChain(dices)) ? 15 : 0;
     }
 
     public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
         final String largeStraight = "23456";
-        return largeStraight.equals(createOrderedChainOfDice(d1, d2, d3, d4, d5)) ? 20 : 0;
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        return largeStraight.equals(createOrderedChain(dices)) ? 20 : 0;
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
         int sumOfFullHouse = 0;
 
-        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicates(dices);
 
         if (duplicateDices.size() == 2) {
-            final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
             sumOfFullHouse = findSumOfAllOccurences(duplicateDices, dices, 3, true);
             if (sumOfFullHouse != 0) {
                 sumOfFullHouse += findSumOfAllOccurences(duplicateDices, dices, 2, true);
@@ -126,17 +131,18 @@ public class Yatzy {
                 .orElse(0);
     }
 
-    private static Set<Integer> findDuplicateDices(int d1, int d2, int d3, int d4, int d5) {
+    private static Set<Integer> findDuplicates(List<Integer> list) {
         final Set<Integer> set = new HashSet<>();
-        return Stream.of(d1, d2, d3, d4, d5)
-                .filter(d -> !set.add(d))
+        return list.stream()
+                .filter(value -> !set.add(value))
                 .collect(Collectors.toSet());
     }
 
-    private static String createOrderedChainOfDice(int d1, int d2, int d3, int d4, int d5) {
-        return IntStream.of(d1, d2, d3, d4, d5)
+    private static String createOrderedChain(List<Integer> list) {
+        return list.stream()
+                .mapToInt(Integer::intValue)
                 .sorted()
                 .mapToObj(String::valueOf)
-                .reduce("", (acc, d) -> acc += d);
+                .reduce("", (acc, value) -> acc += value);
     }
 }

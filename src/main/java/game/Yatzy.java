@@ -16,27 +16,27 @@ public class Yatzy {
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(1, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(1, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(2, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(2, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(3, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(3, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fours(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(4, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(4, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fives(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(5, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(5, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int sixes(int d1, int d2, int d3, int d4, int d5) {
-        return sumOccurences(6, Arrays.asList(d1, d2, d3, d4, d5));
+        return getSumOfOccurences(6, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
@@ -45,18 +45,26 @@ public class Yatzy {
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
         int sumOfTwoPairs = 0;
+
+        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+
         if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
-            sumOfTwoPairs = sumOfAKind(2, false, d1, d2, d3, d4, d5);
+            sumOfTwoPairs = getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+                    2, false);
         }
         return sumOfTwoPairs;
     }
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        return sumOfAKind(3, false, d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+        return getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+                3, false);
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        return sumOfAKind(4, false, d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+        return getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+                4, false);
     }
 
     public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
@@ -72,33 +80,33 @@ public class Yatzy {
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
         int sumOfFullHouse = 0;
 
-        if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
-            sumOfFullHouse = sumOfAKind(3, true, d1, d2, d3, d4, d5);
+        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+
+        if (duplicateDices.size() == 2) {
+            final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
+            sumOfFullHouse = getSumOfAllOccurences(duplicateDices, dices, 3, true);
             if (sumOfFullHouse != 0) {
-                sumOfFullHouse += sumOfAKind(2, true, d1, d2, d3, d4, d5);
+                sumOfFullHouse += getSumOfAllOccurences(duplicateDices, dices, 2, true);
             }
         }
         return sumOfFullHouse;
     }
 
-    private static int sumOfAKind(int valueOfAKind, boolean strictComparison,
-                                  int d1, int d2, int d3, int d4, int d5) {
-        int sumOfAKind = 0;
+    private static int getSumOfAllOccurences(Set<Integer> targetValues,
+                                             List<Integer> list, int numberOfOccurences, boolean strictComparison) {
+        int sumOfAllOccurences = 0;
 
-        final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
-
-        for (int duplicateDice : duplicateDices) {
-            final long occurencesDuplicateDice = countOccurences(duplicateDice, dices);
-            if ((!strictComparison && occurencesDuplicateDice >= valueOfAKind) ||
-                    (strictComparison && occurencesDuplicateDice == valueOfAKind)) {
-                sumOfAKind += duplicateDice * valueOfAKind;
+        for (int targetValue : targetValues) {
+            final long occurencesTargetValue = countOccurences(targetValue, list);
+            if ((!strictComparison && occurencesTargetValue >= numberOfOccurences) ||
+                    (strictComparison && occurencesTargetValue == numberOfOccurences)) {
+                sumOfAllOccurences += targetValue * numberOfOccurences;
             }
         }
-        return sumOfAKind;
+        return sumOfAllOccurences;
     }
 
-    private static int sumOccurences(int targetValue, List<Integer> list) {
+    private static int getSumOfOccurences(int targetValue, List<Integer> list) {
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .filter(value -> value == targetValue)

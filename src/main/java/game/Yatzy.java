@@ -40,12 +40,12 @@ public class Yatzy {
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
-        return findMaxValue(findDuplicateDiceValues(d1, d2, d3, d4, d5)) * 2;
+        return findMaxValue(findDuplicateDices(d1, d2, d3, d4, d5)) * 2;
     }
 
     public static int twoPairs(int d1, int d2, int d3, int d4, int d5) {
         int sumOfTwoPairs = 0;
-        if (findDuplicateDiceValues(d1, d2, d3, d4, d5).size() == 2) {
+        if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
             sumOfTwoPairs = sumOfAKind(2, false, d1, d2, d3, d4, d5);
         }
         return sumOfTwoPairs;
@@ -72,7 +72,7 @@ public class Yatzy {
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
         int sumOfFullHouse = 0;
 
-        if (findDuplicateDiceValues(d1, d2, d3, d4, d5).size() == 2) {
+        if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
             sumOfFullHouse = sumOfAKind(3, true, d1, d2, d3, d4, d5);
             if (sumOfFullHouse != 0) {
                 sumOfFullHouse += sumOfAKind(2, true, d1, d2, d3, d4, d5);
@@ -84,13 +84,15 @@ public class Yatzy {
     private static int sumOfAKind(int valueOfAKind, boolean strictComparison,
                                   int d1, int d2, int d3, int d4, int d5) {
         int sumOfAKind = 0;
+
         final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-        final Set<Integer> duplicateDiceValues = findDuplicateDiceValues(d1, d2, d3, d4, d5);
-        for (int duplicateDiceValue : duplicateDiceValues) {
-            final long totalDuplicateValues = countOccurences(duplicateDiceValue, dices);
-            if ((!strictComparison && totalDuplicateValues >= valueOfAKind) ||
-                    (strictComparison && totalDuplicateValues == valueOfAKind)) {
-                sumOfAKind += duplicateDiceValue * valueOfAKind;
+        final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
+
+        for (int duplicateDice : duplicateDices) {
+            final long occurencesDuplicateDice = countOccurences(duplicateDice, dices);
+            if ((!strictComparison && occurencesDuplicateDice >= valueOfAKind) ||
+                    (strictComparison && occurencesDuplicateDice == valueOfAKind)) {
+                sumOfAKind += duplicateDice * valueOfAKind;
             }
         }
         return sumOfAKind;
@@ -116,7 +118,7 @@ public class Yatzy {
                 .orElse(0);
     }
 
-    private static Set<Integer> findDuplicateDiceValues(int d1, int d2, int d3, int d4, int d5) {
+    private static Set<Integer> findDuplicateDices(int d1, int d2, int d3, int d4, int d5) {
         final Set<Integer> set = new HashSet<>();
         return Stream.of(d1, d2, d3, d4, d5)
                 .filter(d -> !set.add(d))

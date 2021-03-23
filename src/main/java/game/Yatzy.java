@@ -48,7 +48,7 @@ public class Yatzy {
 
         final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
 
-        if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
+        if (duplicateDices.size() == 2) {
             sumOfTwoPairs = findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
                     2, false);
         }

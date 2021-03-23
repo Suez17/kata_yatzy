@@ -16,27 +16,27 @@ public class Yatzy {
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(1, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(1, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(2, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(2, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(3, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(3, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fours(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(4, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(4, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fives(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(5, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(5, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int sixes(int d1, int d2, int d3, int d4, int d5) {
-        return getSumOfOccurences(6, Arrays.asList(d1, d2, d3, d4, d5));
+        return findSumOfOccurences(6, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
@@ -49,7 +49,7 @@ public class Yatzy {
         final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
 
         if (findDuplicateDices(d1, d2, d3, d4, d5).size() == 2) {
-            sumOfTwoPairs = getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+            sumOfTwoPairs = findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
                     2, false);
         }
         return sumOfTwoPairs;
@@ -57,13 +57,13 @@ public class Yatzy {
 
     public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
         final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
-        return getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+        return findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
                 3, false);
     }
 
     public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
         final Set<Integer> duplicateDices = findDuplicateDices(d1, d2, d3, d4, d5);
-        return getSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
+        return findSumOfAllOccurences(duplicateDices, Arrays.asList(d1, d2, d3, d4, d5),
                 4, false);
     }
 
@@ -84,16 +84,16 @@ public class Yatzy {
 
         if (duplicateDices.size() == 2) {
             final List<Integer> dices = Arrays.asList(d1, d2, d3, d4, d5);
-            sumOfFullHouse = getSumOfAllOccurences(duplicateDices, dices, 3, true);
+            sumOfFullHouse = findSumOfAllOccurences(duplicateDices, dices, 3, true);
             if (sumOfFullHouse != 0) {
-                sumOfFullHouse += getSumOfAllOccurences(duplicateDices, dices, 2, true);
+                sumOfFullHouse += findSumOfAllOccurences(duplicateDices, dices, 2, true);
             }
         }
         return sumOfFullHouse;
     }
 
-    private static int getSumOfAllOccurences(Set<Integer> targetValues,
-                                             List<Integer> list, int numberOfOccurences, boolean strictComparison) {
+    private static int findSumOfAllOccurences(Set<Integer> targetValues,
+                                              List<Integer> list, int numberOfOccurences, boolean strictComparison) {
         int sumOfAllOccurences = 0;
 
         for (int targetValue : targetValues) {
@@ -106,7 +106,7 @@ public class Yatzy {
         return sumOfAllOccurences;
     }
 
-    private static int getSumOfOccurences(int targetValue, List<Integer> list) {
+    private static int findSumOfOccurences(int targetValue, List<Integer> list) {
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .filter(value -> value == targetValue)

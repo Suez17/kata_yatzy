@@ -16,27 +16,27 @@ public class Yatzy {
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(1, d1, d2, d3, d4, d5);
+        return sumOccurences(1, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(2, d1, d2, d3, d4, d5);
+        return sumOccurences(2, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(3, d1, d2, d3, d4, d5);
+        return sumOccurences(3, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fours(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(4, d1, d2, d3, d4, d5);
+        return sumOccurences(4, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int fives(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(5, d1, d2, d3, d4, d5);
+        return sumOccurences(5, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int sixes(int d1, int d2, int d3, int d4, int d5) {
-        return sumTargetDiceValue(6, d1, d2, d3, d4, d5);
+        return sumOccurences(6, Arrays.asList(d1, d2, d3, d4, d5));
     }
 
     public static int pair(int d1, int d2, int d3, int d4, int d5) {
@@ -96,9 +96,10 @@ public class Yatzy {
         return sumOfAKind;
     }
 
-    private static int sumTargetDiceValue(int targetDiceValue, int d1, int d2, int d3, int d4, int d5) {
-        return IntStream.of(d1, d2, d3, d4, d5)
-                .filter(d -> d == targetDiceValue)
+    private static int sumOccurences(int targetValue, List<Integer> list) {
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .filter(value -> value == targetValue)
                 .sum();
     }
     
@@ -110,7 +111,7 @@ public class Yatzy {
 
     private static int findMaxValue(Set<Integer> set) {
         return set.stream()
-                .mapToInt(Integer::valueOf)
+                .mapToInt(Integer::intValue)
                 .max()
                 .orElse(0);
     }
